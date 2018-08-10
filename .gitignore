@@ -1,5 +1,4 @@
 .idea/
 db.sqlite3
 venv/
-alfheimproject/local_settings.py
 alfheimproject/conf/secrets.json
