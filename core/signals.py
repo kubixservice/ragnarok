@@ -15,7 +15,7 @@ def send_account_verification(sender, instance, **kwargs):
         'creation_date': instance.created_date,
         'verify_url': '{domain}{url}?verify={token}'.format(
             domain=CONFIG['server']['conf']['server_domain'],
-            url=reverse('master_account'),
+            url=reverse('activate_master_account'),
             token=instance.token
         )
     })

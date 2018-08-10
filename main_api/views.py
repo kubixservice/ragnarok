@@ -20,6 +20,69 @@ from alfheimproject.settings import CONFIG
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
 
 
+class UserVerificationViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+
+    def retrieve(self, request, *args, **kwargs):
+        token = self.request.query_params.get('verify', None)
+        response = {
+            'message': '',
+            'code': 0
+        }
+
+        if not token:
+            response['message'] = 'Bad request'
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            verification = main_models.UserVerification.objects.get(token=token)
+        except main_models.UserVerification.DoesNotExist:
+            response['message'] = 'Token not found, request new'
+            response['code'] = 1
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        if not verification.is_available:
+            response['message'] = 'Token not available'
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        if verification.user.is_active:
+            response['message'] = 'User already active'
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        current_date = datetime.date.today()
+        if current_date > verification.expiration_date:
+            response['message'] = 'Token not found, request new'
+            response['code'] = 1
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        verification.is_available = False
+        verification.user.is_active = True
+        verification.save()
+        verification.user.save()
+        response['message'] = 'Token not found, request new'
+        return Response(response, status=status.HTTP_200_OK)
+
+    def create(self, request, *args, **kwargs):
+        data = self.request.data
+
+        try:
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            return Response({'message': 'User with this email does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        if user.is_active:
+            return Response({'message': 'User already active'}, status=status.HTTP_400_BAD_REQUEST)
+
+        token = account_activation_token.make_token()
+        expiration_date = datetime.date.today() + datetime.timedelta(days=CONFIG['security']['verification_key_expire'])
+        user.verification.create(
+            token=token,
+            expiration_date=expiration_date,
+            created_date=datetime.date.today()
+        )
+        return Response({'message': 'Verification was sent'}, status=status.HTTP_200_OK)
+
+
 class MainUserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly]

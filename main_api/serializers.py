@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 from core import fields
+from .models import UserVerification
 from alfheimproject.settings import CONFIG
 
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))

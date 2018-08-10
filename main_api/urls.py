@@ -10,6 +10,10 @@ urlpatterns = [
         'get': 'retrieve',
         'post': 'create'
     }), name='master_account'),
+    path('master_account/activate/', views.UserVerificationViewSet.as_view({
+        'get': 'retrieve',
+        'post': 'create'
+    }), name='activate_master_account'),
     path('character/<int:pk>/', views.GameCharacterViewSet.as_view({
         'get': 'retrieve'
     })),
