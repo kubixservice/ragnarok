@@ -10,7 +10,7 @@ API Documentation:
 ## Installation (Linux/Windows)
 * Create file _**secrets.json**_ at _**alfheimproject/conf**_
 ##### Paste these lines to your secrets.json
-```json
+```
 {
   "secret_key": "my_key",  // Generate random key (sha512 preferred)
   "db_engine": "mysql",  // Your DB engine (since herc and rA doesn't support postgres and etc, left mysql here)
