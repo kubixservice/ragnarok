@@ -12,9 +12,8 @@ from random import randint
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.aggregates import Count
-from django.utils import timezone
 
-from alfheimproject.settings import USE_MD5, DEFAULT_MAP, DEFAULT_X, DEFAULT_Y
+from alfheimproject.settings import CONFIG
 
 
 class AutotradeMerchantsManager(models.Manager):
@@ -25,20 +24,11 @@ class AutotradeMerchantsManager(models.Manager):
 
 
 class LoginManager(models.Manager):
-    def create_game_account(self, userid, user_pass, sex, email, master_account):
-        if USE_MD5:
-            user_pass = hashlib.md5(user_pass.encode('utf-8')).hexdigest()
 
-        self.create(
-            userid=userid,
-            user_pass=user_pass,
-            sex=sex,
-            email=email,
-            master_account=master_account,
-            lastlogin='1970-01-01 10:00:00',
-            birthdate='1970-01-01'
-        )
-        return True
+    def create(self, **kwargs):
+        if CONFIG['security']['use_md5']:
+            kwargs['user_pass'] = hashlib.md5(kwargs['user_pass'].encode('utf-8')).hexdigest()
+        return super().create(**kwargs)
 
 
 class Login(models.Model):
@@ -52,13 +42,13 @@ class Login(models.Model):
     unban_time = models.IntegerField(default=0, null=True)
     expiration_time = models.IntegerField(default=0, null=True)
     logincount = models.IntegerField(default=0, null=True)
-    lastlogin = models.DateTimeField(blank=True, null=True, default=timezone.now)
+    lastlogin = models.DateTimeField(blank=True, null=True, auto_now=True)
     last_ip = models.CharField(max_length=100, default='', null=True)
-    birthdate = models.DateField(blank=True, null=True, default=timezone.now)
+    birthdate = models.DateField(blank=True, null=True, auto_now=True)
     character_slots = models.IntegerField(default=0, null=True)
     pincode = models.CharField(max_length=4, default='', null=True)
     pincode_change = models.IntegerField(default=0, null=True)
-    master_account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_account')
+    master_account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_accounts')
 
     class Meta:
         managed = False
@@ -66,29 +56,6 @@ class Login(models.Model):
 
     def __str__(self):
         return self.account_id
-
-    def change_password(self, new_pass):
-        if USE_MD5:
-            new_pass = hashlib.md5(new_pass.encode('utf-8')).hexdigest()
-
-        # if self.user_pass != old_pass:
-        #     return False
-        self.user_pass = new_pass
-        self.save()
-        return True
-
-    def check_passwd(self, passwd):
-        if USE_MD5:
-            passwd = hashlib.md5(passwd.encode('utf-8')).hexdigest()
-        return False if self.user_pass != passwd else True
-
-    def set_master_account(self, userid):
-
-        if not self.master_account:
-            self.master_account = userid
-            self.save()
-            return True
-        return False
 
     objects = LoginManager()
 
@@ -160,10 +127,10 @@ class Char(models.Model):
         db_table = 'char'
 
     def reset_position(self):
-        self.last_map = DEFAULT_MAP
-        self.last_x = DEFAULT_X
-        self.last_y = DEFAULT_Y
-        return True
+        self.last_map = CONFIG['server']['other']['default_map']
+        self.last_x = CONFIG['server']['other']['default_x']
+        self.last_y = CONFIG['server']['other']['default_y']
+        self.save()
 
     def reset_look(self):
         self.clothes_color = 0
@@ -173,7 +140,10 @@ class Char(models.Model):
         self.head_top = 0
         self.head_mid = 0
         self.robe = 0
-        return True
+        self.save()
+
+    def __str__(self):
+        return self.name
 
 
 class ItemDb(models.Model):
@@ -503,8 +473,7 @@ class GlobalAccRegStrDb(models.Model):
 class Guild(models.Model):
     guild_id = models.IntegerField(unique=True, auto_created=True, primary_key=True)
     guild_name = models.CharField(max_length=24, db_column='name')
-    char_id = models.ForeignKey(Char, on_delete=models.CASCADE, to_field='char_id', db_column='char_id',
-                                name='char_id')
+    char_id = models.ForeignKey(Char, on_delete=models.CASCADE, to_field='char_id', db_column='char_id')
     master = models.CharField(max_length=24)
     guild_lv = models.IntegerField()
     connect_member = models.IntegerField()
@@ -523,6 +492,15 @@ class Guild(models.Model):
         managed = False
         db_table = 'guild'
         unique_together = (('guild_id', 'char_id'),)
+
+    @property
+    def emblem_url(self):
+        return [self.guild_id, self.emblem_data]
+
+    @property
+    def get_members_count(self):
+        members = GuildMember.objects.filter(guild_id=self.guild_id).count()
+        return members
 
 
 class GuildAlliance(models.Model):

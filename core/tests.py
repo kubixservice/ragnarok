@@ -1,3 +1,10 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+class TestModelsImport(TestCase):
+
+    def test_hercules(self):
+        pass
+
+    def test_rathena(self):
+        pass
