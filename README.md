@@ -1,7 +1,7 @@
 # Alfheim Project
 #### Control Panel for Ragnarok Online private servers
 
-API Documentation: 
+[API documentation](https://app.swaggerhub.com/apis/alfheimproject/alfheimprojectAPI/1.0.0)
 
 ## Requirements
 * Python (3.5+)
