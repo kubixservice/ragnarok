@@ -106,10 +106,6 @@ class MainUserViewSet(viewsets.ModelViewSet):
         else:
             serializer.save(is_active=True)
 
-    def update(self, request, *args, **kwargs):
-        object = self.get_object()
-        serializer = serializers.ChangePasswordSerializer(data=request.data)
-
 
 class GameCharacterViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly, perms.IsMine]
