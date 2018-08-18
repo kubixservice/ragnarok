@@ -2,7 +2,7 @@
 echo '
 {
   "secret_key": "my-secret-key",
-  "db_engine": "",
+  "db_engine": "sqlite3",
   "db_host": "",
   "db_username": "",
   "db_password": "",
