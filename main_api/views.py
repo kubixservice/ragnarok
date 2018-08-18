@@ -115,7 +115,7 @@ class PasswordUpdateViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             data = serializer.data
-            user: User = self.request.user
+            user = self.request.user
             if not user:
                 try:
                     user = User.objects.get(email=data.get('email'))
