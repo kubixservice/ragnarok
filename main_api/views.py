@@ -59,7 +59,7 @@ class UserVerificationViewSet(viewsets.ViewSet):
         verification.user.is_active = True
         verification.save()
         verification.user.save()
-        response['message'] = 'Token not found, request new'
+        response['message'] = 'User activated'
         return Response(response, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
@@ -105,6 +105,10 @@ class MainUserViewSet(viewsets.ModelViewSet):
             )
         else:
             serializer.save(is_active=True)
+
+    def update(self, request, *args, **kwargs):
+        object = self.get_object()
+        serializer = serializers.ChangePasswordSerializer(data=request.data)
 
 
 class GameCharacterViewSet(viewsets.ReadOnlyModelViewSet):

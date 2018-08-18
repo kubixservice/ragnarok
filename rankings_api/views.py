@@ -9,7 +9,7 @@ from main_api import serializers as main_serializers
 
 class CharactersRankingViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
-    serializer_class = main_serializers.GameCharacterSerializer
+    serializer_class = main_serializers.RankingCharacterSerializer
 
     def get_queryset(self):
         queryset = models.Char.objects.all()
@@ -48,6 +48,7 @@ class GuildRankingViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
     serializer_class = main_serializers.GameGuildSerializer
     queryset = models.Guild.objects.all()
+    lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
         queryset = models.Guild.objects.order_by('-guild_lv', '-exp')
