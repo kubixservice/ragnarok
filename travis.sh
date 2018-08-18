@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "
+echo '
 {
   "secret_key": "",
   "db_engine": "",
@@ -17,4 +17,4 @@ echo "
     "email_host_password": ""
   }
 }
-" > alfheimproject/conf/secrets.json
+' > alfheimproject/conf/secrets.json
