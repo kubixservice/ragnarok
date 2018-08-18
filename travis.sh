@@ -6,7 +6,7 @@ echo '
   "db_host": "",
   "db_username": "",
   "db_password": "",
-  "db_database": "",
+  "db_database": "ragnarok",
   "db_port": 0,
   "table_prefix": "",
   "smtp": {
