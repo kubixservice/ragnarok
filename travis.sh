@@ -8,7 +8,7 @@ echo '
   "db_password": "",
   "db_database": "ragnarok",
   "db_port": 0,
-  "table_prefix": "",
+  "table_prefix": "cp_",
   "smtp": {
     "email_host": "",
     "email_host_user": "",
