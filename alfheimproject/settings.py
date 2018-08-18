@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main_api.apps.MainApiConfig',
     'core.apps.CoreConfig',
+    'eamod_api.apps.EamodApiConfig',
     'rest_framework',
 ]
 

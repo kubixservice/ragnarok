@@ -4,7 +4,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 from core import fields
-from .models import UserVerification
 from alfheimproject.settings import CONFIG
 
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
@@ -18,6 +17,28 @@ class GameGuildSerializer(serializers.ModelSerializer):
         model = models.Guild
         fields = ('guild_id', 'guild_name', 'master', 'guild_lv', 'connect_member', 'max_member', 'average_lv',
                   'exp', 'emblem_url', 'members_count')
+
+
+class RankingCharacterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Char
+        fields = ('char_id', 'name', 'class_field', 'job_level', 'base_level', 'base_exp', 'job_exp',
+                  'zeny', 'guild_id')
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
 
 
 class GameCharacterSerializer(serializers.ModelSerializer):
