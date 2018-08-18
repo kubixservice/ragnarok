@@ -8,9 +8,9 @@ urlpatterns = [
     path('verify', verify_jwt_token, name='api_verify_token'),
     path('master_account', views.MainUserViewSet.as_view({
         'get': 'retrieve',
-        'post': 'create'
+        'post': 'create',
     }), name='master_account'),
-    path('master_account/activate', views.UserVerificationViewSet.as_view({
+    path('activate', views.UserVerificationViewSet.as_view({
         'get': 'retrieve',
         'post': 'create'
     }), name='activate_master_account'),
@@ -34,5 +34,8 @@ urlpatterns = [
     })),
     path('server/status', views.ServerStatusViewSet.as_view({
         'get': 'retrieve'
+    })),
+    path('update_password', views.PasswordUpdateViewSet.as_view({
+        'put': 'update'
     }))
 ]

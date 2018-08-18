@@ -107,6 +107,29 @@ class MainUserViewSet(viewsets.ModelViewSet):
             serializer.save(is_active=True)
 
 
+class PasswordUpdateViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.ChangePasswordSerializer
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.data
+            user = self.request.user
+            if not user:
+                try:
+                    user = User.objects.get(email=data.get('email'))
+                except User.DoesNotExist:
+                    return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+
+            if not user.check_password(data.get('old_password')):
+                return Response({'old_password': 'Incorrect old password'}, status=status.HTTP_400_BAD_REQUEST)
+            user.set_password(data.get('new_password'))
+            user.save()
+            return Response('Password has been updated', status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class GameCharacterViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly, perms.IsMine]
     queryset = models.Char.objects.all()
