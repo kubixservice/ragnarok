@@ -1,7 +1,7 @@
 #!/bin/sh
 echo '
 {
-  "secret_key": "",
+  "secret_key": "my-secret-key",
   "db_engine": "",
   "db_host": "",
   "db_username": "",
