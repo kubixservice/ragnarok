@@ -24,7 +24,7 @@ class UserVerificationViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
 
     def retrieve(self, request, *args, **kwargs):
-        token = self.request.query_params.get('verify', None)
+        token = self.request.query_params.get('token', None)
         response = {
             'message': '',
             'code': 0

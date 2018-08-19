@@ -1,5 +1,5 @@
 import os
-import json
+import commentjson
 
 from core.exceptions import RagnarokConfigError
 
@@ -7,18 +7,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 try:
     with open(os.path.join(BASE_DIR, 'alfheimproject/conf/config.json')) as config:
-        CONFIG = json.load(config)
+        CONFIG = commentjson.load(config)
 except FileNotFoundError:
     raise RagnarokConfigError('config.json not found. Did you forgot to add it?')
 
 try:
     with open(os.path.join(BASE_DIR, 'alfheimproject/conf/secrets.json')) as secrets:
-        SECRETS = json.load(secrets)
+        SECRETS = commentjson.load(secrets)
 except FileNotFoundError:
     raise RagnarokConfigError('secrets.json not found. Did you forgot to add it?')
-
-if CONFIG['security']['use_md5'] and CONFIG['security']['use_bcrypt']:
-    raise RagnarokConfigError('Please select only one password hasher')
 
 DEBUG = CONFIG['server']['conf']['debug']
 
