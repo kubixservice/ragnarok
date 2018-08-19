@@ -7,12 +7,12 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
 
-import hashlib
 from random import randint
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.aggregates import Count
 
+from core.hashers import hasher
 from alfheimproject.settings import CONFIG
 
 
@@ -26,8 +26,7 @@ class AutotradeMerchantsManager(models.Manager):
 class LoginManager(models.Manager):
 
     def create(self, **kwargs):
-        if CONFIG['security']['use_md5']:
-            kwargs['user_pass'] = hashlib.md5(kwargs['user_pass'].encode('utf-8')).hexdigest()
+        kwargs['user_pass'] = hasher.hash_password(kwargs['user_pass'])
         return super().create(**kwargs)
 
 

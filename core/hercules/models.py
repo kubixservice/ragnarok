@@ -3,7 +3,7 @@ import hashlib
 from django.db import models
 from django.contrib.auth.models import User
 
-from alfheimproject.settings import USE_MD5, DEFAULT_MAP, DEFAULT_X, DEFAULT_Y, CONFIG
+from alfheimproject.settings import CONFIG
 
 
 class LoginManager(models.Manager):

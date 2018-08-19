@@ -17,9 +17,6 @@ try:
 except FileNotFoundError:
     raise RagnarokConfigError('secrets.json not found. Did you forgot to add it?')
 
-if CONFIG['security']['use_md5'] and CONFIG['security']['use_bcrypt']:
-    raise RagnarokConfigError('Please select only one password hasher')
-
 DEBUG = CONFIG['server']['conf']['debug']
 
 ALLOWED_HOSTS = ['*']

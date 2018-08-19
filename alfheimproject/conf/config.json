@@ -42,8 +42,11 @@
     "max_username_length": 24,
     "min_password_length": 4,
     "max_password_length": 32,
-    "use_md5": true,
-    "use_bcrypt": false,
+    "password_hasher": 1,
+    "bcrypt": {
+      "rounds": 12,
+      "prefix": "not used"
+    },
     "email_verification": true,
     "verification_key_expire": 7
   },
@@ -53,10 +56,16 @@
   },
   "api": {
     "divine_pride": {
-      "api_key": "0"
+      "api_key": "none"
     },
     "discord": {
       "guild_id": 0
+    }
+  },
+  "woe": {
+    "sunday": {
+      "start": "18:00",
+      "end": "20:00"
     }
   }
 }
