@@ -1,11 +1,11 @@
 import uuid
 
 
-class AccountActivationTokenGenerator(object):
+class AccountActivationTokenGenerator:
     @staticmethod
     def make_token():
-        _token = uuid.uuid4()
-        return str(_token)
+        token = uuid.uuid4()
+        return str(token)
 
 
 account_activation_token = AccountActivationTokenGenerator()
