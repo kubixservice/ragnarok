@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+class AdminVerification(admin.ModelAdmin):
+    list_display = ('user', 'expiration_date', 'created_date', 'is_available')
+
+
+admin.site.register(models.UserVerification, AdminVerification)

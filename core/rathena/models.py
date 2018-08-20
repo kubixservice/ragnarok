@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from django.db.models.aggregates import Count
 
 from core.hashers import hasher
+from core.ragnarok import ragnarok
 from alfheimproject.settings import CONFIG
 
 
@@ -64,7 +65,7 @@ class Char(models.Model):
     account_id = models.ForeignKey(Login, on_delete=models.CASCADE, to_field='account_id', db_column='account_id')
     char_num = models.IntegerField()
     name = models.CharField(unique=True, max_length=30)
-    class_field = models.SmallIntegerField(db_column='class')  # Field renamed because it was a Python reserved word.
+    class_field = models.SmallIntegerField(db_column='class', verbose_name='class')
     base_level = models.SmallIntegerField()
     job_level = models.SmallIntegerField()
     base_exp = models.BigIntegerField()
@@ -143,6 +144,14 @@ class Char(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def colored_class_name(self):
+        return ragnarok.html_colored_class_name(self.class_field)
+
+    @property
+    def class_name(self):
+        return ragnarok.class_name(self.class_field)
 
 
 class ItemDb(models.Model):
@@ -1309,5 +1318,3 @@ class Zenylog(models.Model):
     class Meta:
         managed = False
         db_table = 'zenylog'
-
-
