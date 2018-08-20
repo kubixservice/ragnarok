@@ -27,7 +27,7 @@ class PasswordHasher:
     def bcrypt(password):
         salt = bcrypt.gensalt(rounds=CONFIG['security']['bcrypt']['rounds'])
         _hash = bcrypt.hashpw(str(password).encode('utf-8'), salt)
-        return _hash
+        return _hash.decode('utf-8')
 
     @staticmethod
     def md5(password):
