@@ -37,3 +37,11 @@ class GuildEmblemField(serializers.Field):
                                                                        id=guild_id)), None)
         # No emblem found for this guild
         return None
+
+
+class ClassNameField(serializers.Field):
+    def to_internal_value(self, data):
+        return data
+
+    def to_representation(self, value):
+        return value

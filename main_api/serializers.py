@@ -20,10 +20,12 @@ class GameGuildSerializer(serializers.ModelSerializer):
 
 
 class RankingCharacterSerializer(serializers.ModelSerializer):
+    class_name = fields.ClassNameField('class_name')
+
     class Meta:
         model = models.Char
         fields = ('char_id', 'name', 'class_field', 'job_level', 'base_level', 'base_exp', 'job_exp',
-                  'zeny', 'guild_id')
+                  'zeny', 'guild_id', 'class_name')
 
 
 class ChangePasswordSerializer(serializers.Serializer):
@@ -43,12 +45,16 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 class GameCharacterSerializer(serializers.ModelSerializer):
+    class_name = fields.ClassNameField('class_name')
+    colored_class_name = fields.ClassNameField('colored_class_name')
+
     class Meta:
         model = models.Char
-        fields = ('char_id', 'account_id', 'name', 'class_field', 'job_level', 'base_level', 'base_exp', 'job_exp',
-                  'zeny', 'str', 'agi', 'vit', 'int', 'dex', 'luk', 'max_hp', 'hp', 'max_sp', 'sp', 'status_point',
-                  'skill_point', 'party_id', 'guild_id', 'pet_id', 'homun_id', 'last_map', 'last_x', 'last_y',
-                  'save_map', 'save_x', 'save_y', 'partner_id', 'online', 'father', 'mother', 'child')
+        fields = ('char_id', 'account_id', 'name', 'class_field', 'class_name', 'job_level', 'base_level', 'base_exp',
+                  'job_exp', 'zeny', 'str', 'agi', 'vit', 'int', 'dex', 'luk', 'max_hp', 'hp', 'max_sp', 'sp',
+                  'status_point', 'skill_point', 'party_id', 'guild_id', 'pet_id', 'homun_id', 'last_map', 'last_x',
+                  'last_y', 'save_map', 'save_x', 'save_y', 'partner_id', 'online', 'father', 'mother', 'child',
+                  'colored_class_name')
 
 
 class GameAccountSerializer(serializers.ModelSerializer):

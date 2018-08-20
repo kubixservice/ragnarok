@@ -18,7 +18,7 @@ class PasswordHasher:
                 password = PasswordHasher.md5(password)
             return password
         else:
-            raise RagnarokConfigError('{cls}:{method}: security > password_hasher must be integer'.format(
+            raise RagnarokConfigError('{cls}:{method}: [CONFIG:security > password_hasher] must be integer'.format(
                 cls=__class__.__name__,
                 method=__class__.hash_password.__name__
             ))
