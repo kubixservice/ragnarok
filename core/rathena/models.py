@@ -146,10 +146,6 @@ class Char(models.Model):
         return self.name
 
     @property
-    def colored_class_name(self):
-        return ragnarok.html_colored_class_name(self.class_field)
-
-    @property
     def class_name(self):
         return ragnarok.class_name(self.class_field)
 

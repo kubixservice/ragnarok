@@ -9,12 +9,14 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
+
 from . import serializers
 from . import models as main_models
 from . import permissions as perms
 
 from core.core import server
 from core.token import account_activation_token
+from core.medium import get_medium_posts
 from alfheimproject.settings import CONFIG
 
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
@@ -190,3 +192,12 @@ class ServerStatusViewSet(viewsets.ViewSet):
         data = {**_status, **_online}
         serializer = serializers.ServerStatusSerializer(data)
         return Response(serializer.data)
+
+
+class MediumViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+
+    def retrieve(self, request):
+        data = get_medium_posts()
+        serializer = serializers.MediumPostSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

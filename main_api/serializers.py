@@ -46,15 +46,13 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class GameCharacterSerializer(serializers.ModelSerializer):
     class_name = fields.ClassNameField('class_name')
-    colored_class_name = fields.ClassNameField('colored_class_name')
 
     class Meta:
         model = models.Char
         fields = ('char_id', 'account_id', 'name', 'class_field', 'class_name', 'job_level', 'base_level', 'base_exp',
                   'job_exp', 'zeny', 'str', 'agi', 'vit', 'int', 'dex', 'luk', 'max_hp', 'hp', 'max_sp', 'sp',
                   'status_point', 'skill_point', 'party_id', 'guild_id', 'pet_id', 'homun_id', 'last_map', 'last_x',
-                  'last_y', 'save_map', 'save_x', 'save_y', 'partner_id', 'online', 'father', 'mother', 'child',
-                  'colored_class_name')
+                  'last_y', 'save_map', 'save_x', 'save_y', 'partner_id', 'online', 'father', 'mother', 'child')
 
 
 class GameAccountSerializer(serializers.ModelSerializer):
@@ -164,6 +162,20 @@ class ServerStatusSerializer(serializers.Serializer):
     highest_peak = serializers.IntegerField()
     peak_date = serializers.DateField()
     discord_updated = serializers.DateTimeField()
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
+
+class MediumPostSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=300)
+    img_url = serializers.URLField()
+    summary = serializers.CharField(max_length=300)
+    published = serializers.DateTimeField()
+    link = serializers.URLField()
 
     def update(self, instance, validated_data):
         pass
