@@ -59,6 +59,9 @@
     },
     "discord": {
       "guild_id": 0
+    },
+    "medium": {
+      "username": ""
     }
   },
   "woe": [ // WoE schedule

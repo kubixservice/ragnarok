@@ -37,5 +37,8 @@ urlpatterns = [
     })),
     path('update_password', views.PasswordUpdateViewSet.as_view({
         'put': 'update'
+    })),
+    path('medium', views.MediumViewSet.as_view({
+        'get': 'retrieve'
     }))
 ]

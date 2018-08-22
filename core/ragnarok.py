@@ -115,33 +115,12 @@ class Ragnarok(object):
         4211: 'Kagerou',
         4212: 'Oboro'
     }
-    """
-    TODO: return colors based by class
-    Merchant class: {color:#ff7c0a}
-    Archer class: {color:#7ba93d}
-    Mage class: {color:#46b1d6}
-    Gunslinger class: {color:#0ac895}
-    Swordsman class: {color:#f48cba}
-    Acolyte class: {color:#817d73}
-    Thief class: {color:#aba14f}
-    Ninja class: {color:#2359ff}
-    Taekwon class: {color:#9382c9}
-    Novice/Super Novice class: {color:#af7c46}
-    """
-    colors = 'ff7c0a'
 
     def class_name(self, cls_id):
         try:
             return self.classes[cls_id]
         except KeyError:
             return 'Not found'
-
-    def html_colored_class_name(self, cls_id):
-        format_string = format_html('<span style="color: #{color};">{class_name}</span>'.format(
-            color=self.colors,
-            class_name=self.class_name(cls_id)
-        ))
-        return format_string
 
 
 ragnarok = Ragnarok()
