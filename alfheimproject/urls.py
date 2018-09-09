@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/Main/', include('main_api.urls'), name='main_api'),
     path('api/Rankings/', include('rankings_api.urls'), name='rankings_api'),
     path('api/eAmod/', include('eamod_api.urls'), name='eamod_api'),
+    path('api/Donations/', include('donations_api.urls'), name='donations_api')
 ]

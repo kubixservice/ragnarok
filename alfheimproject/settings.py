@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'main_api.apps.MainApiConfig',
     'core.apps.CoreConfig',
     'eamod_api.apps.EamodApiConfig',
+    'donations_api.apps.DonationsApiConfig',
     'rest_framework',
 ]
 

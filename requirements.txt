@@ -1,9 +1,11 @@
+asn1crypto==0.24.0
 bcrypt==3.1.4
 beautifulsoup4==4.6.3
 certifi==2018.4.16
 cffi==1.11.5
 chardet==3.0.4
 commentjson==0.7.1
+cryptography==2.3.1
 Django==2.1
 django-cors-headers==2.4.0
 django-recaptcha==1.4.0
@@ -14,10 +16,13 @@ djangorestframework-queryfields==1.0.0
 feedparser==5.2.1
 idna==2.7
 libgravatar==0.2.3
+medium==0.3.0
 mysqlclient==1.3.13
+paypalrestsdk==1.13.1
 Pillow==5.2.0
 pycparser==2.18
 PyJWT==1.6.4
+pyOpenSSL==18.0.0
 pytz==2018.5
 redis==2.10.6
 requests==2.19.1
