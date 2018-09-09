@@ -13,7 +13,7 @@ def send_account_verification(sender, instance, **kwargs):
         'email': instance.user.email,
         'staff_email': SECRETS['smtp']['email_host_user'],
         'creation_date': instance.created_date,
-        'verify_url': '{domain}{url}?verify={token}'.format(
+        'verify_url': '{domain}{url}?token={token}'.format(
             domain=CONFIG['server']['conf']['server_domain'],
             url=reverse('activate_master_account'),
             token=instance.token

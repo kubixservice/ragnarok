@@ -1,5 +1,6 @@
 import os
 import commentjson
+import paypalrestsdk
 
 from core.exceptions import RagnarokConfigError
 
@@ -16,6 +17,12 @@ try:
         SECRETS = commentjson.load(secrets)
 except FileNotFoundError:
     raise RagnarokConfigError('secrets.json not found. Did you forgot to add it?')
+
+try:
+    with(open(os.path.join(BASE_DIR, 'alfheimproject/conf/donations.json'))) as donations:
+        DONATIONS = commentjson.load(donations)
+except FileNotFoundError:
+    raise RagnarokConfigError('donations.json not found. Did you forgot to add it?')
 
 DEBUG = CONFIG['server']['conf']['debug']
 
@@ -49,3 +56,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
 }
+
+paypalrestsdk.configure({
+    "mode": DONATIONS['paypal']['mode'],
+    "client_id": DONATIONS['paypal']['client_id'],
+    "client_secret": DONATIONS['paypal']['client_secret']
+})

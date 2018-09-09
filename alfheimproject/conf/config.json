@@ -5,7 +5,7 @@
       "debug": true, // Enable debug mode? (don't enable it in production)
       "server_name": "YourRO", // Your server name
       "server_ip": "127.0.0.1", // Server IP (used to check server status)
-      "server_domain": "http://127.0.0.1:8000", // Server domain (must include http://)
+      "server_domain": "http://127.0.0.1:10000", // Server domain (must include http://)
       "login_port": 6900,
       "char_port": 6121,
       "map_port": 5121,
