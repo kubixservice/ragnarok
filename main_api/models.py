@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 
 from core.signals import send_account_verification
 
@@ -52,4 +52,31 @@ class ServerHighestPeak(models.Model):
         return '{peak} - {date}'.format(peak=self.peak, date=self.peak_date)
 
 
+class UserProfile(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='profile',
+        verbose_name='Master account'
+    )
+    balance = models.IntegerField(
+        default=0,
+        verbose_name='Account balance',
+    )
+
+    class Meta:
+        db_table = '{prefix}user_profile'.format(prefix=SECRETS['table_prefix'])
+
+    def __str__(self):
+        return self.user.username
+
+
+def create_user_profile(sender, instance, **kwargs):
+    if kwargs.get('created'):
+        UserProfile.objects.create(
+            user=instance
+        )
+
+
 pre_save.connect(send_account_verification, sender=UserVerification)
+post_save.connect(create_user_profile, sender=User)

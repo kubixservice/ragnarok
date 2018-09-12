@@ -2,4 +2,6 @@
 db.sqlite3
 venv/
 alfheimproject/conf/secrets.json
+alfheimproject/conf/donations.json
+alfheimproject/conf/config.json
 static/guilds/*
