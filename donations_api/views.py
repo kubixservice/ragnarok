@@ -10,6 +10,7 @@ from django.urls import reverse
 
 from . import serializers
 from . import models
+from main_api.models import UserProfile
 
 from alfheimproject.settings import DONATIONS, CONFIG
 
@@ -102,6 +103,7 @@ class PayPalExecutePaymentViewSet(viewsets.ViewSet):
             payment_log.executed = True
             payment_log.save()
             response = 'OK'
+
         else:
             response = payment.error
 
