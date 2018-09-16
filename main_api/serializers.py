@@ -182,3 +182,16 @@ class MediumPostSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         pass
+
+
+class WoeScheduleSerializer(serializers.Serializer):
+    start_day = fields.DayOfWeekField()
+    start_time = serializers.TimeField()
+    end_day = fields.DayOfWeekField()
+    end_time = serializers.TimeField()
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass

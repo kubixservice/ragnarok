@@ -1,6 +1,7 @@
 import os
 import codecs
 import binascii
+import calendar
 
 from rest_framework import serializers
 from alfheimproject.settings import BASE_DIR, CONFIG
@@ -44,4 +45,13 @@ class ClassNameField(serializers.Field):
         return data
 
     def to_representation(self, value):
+        return value
+
+
+class DayOfWeekField(serializers.Field):
+    def to_internal_value(self, data):
+        return data
+
+    def to_representation(self, value):
+        value = calendar.day_name[value]
         return value
