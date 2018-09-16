@@ -53,7 +53,8 @@ class PayPalCreatePaymentViewSet(viewsets.ViewSet):
                         "total": "{total:.2f}".format(total=amount),
                         "currency": "USD"
                     },
-                    "description": DONATIONS['paypal']['description'].format(points=points, amount=amount)
+                    "description": DONATIONS['paypal']['description'].format(points=points, amount=amount,
+                                                                             currency=DONATIONS['paypal']['currency'])
                 }]
             })
 

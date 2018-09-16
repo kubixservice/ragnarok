@@ -40,5 +40,8 @@ urlpatterns = [
     })),
     path('medium', views.MediumViewSet.as_view({
         'get': 'retrieve'
+    })),
+    path('woe_schedule', views.WoeScheduleViewSet.as_view({
+        'get': 'list'
     }))
 ]

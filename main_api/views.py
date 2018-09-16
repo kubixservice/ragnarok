@@ -9,7 +9,6 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-
 from . import serializers
 from . import models as main_models
 from . import permissions as perms
@@ -200,4 +199,20 @@ class MediumViewSet(viewsets.ViewSet):
     def retrieve(self, request):
         data = get_medium_posts()
         serializer = serializers.MediumPostSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class WoeScheduleViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+
+    def list(self, request):
+        woe = []
+        for schedule in CONFIG['woe']:
+            woe.append({
+                'start_day': schedule[0],
+                'start_time': schedule[1],
+                'end_day': schedule[2],
+                'end_time': schedule[3]
+            })
+        serializer = serializers.WoeScheduleSerializer(woe, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

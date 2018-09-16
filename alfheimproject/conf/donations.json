@@ -8,7 +8,7 @@
     "client_secret": "EOhGYFcdMSXeHWVvSUqnE6jc_AIcKYQRqR6WB8Al_IY4nrX3AfMrZlC5rH5NfIkrljVTHg7wjABWXdE7",
     "redirect_url": "{domain}{reversed_for_view}",
     "cancel_url": "{domain}{reversed_for_view}",
-    "description": "You have purchased {points} donation points for ${amount:.2f}",
+    "description": "You have purchased {points} donation points for {amount:.2f} {currency}",
     "currency": "USD"
   },
   "yandex": {
