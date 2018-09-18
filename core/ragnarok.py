@@ -1,6 +1,3 @@
-from django.utils.html import format_html
-
-
 class Ragnarok(object):
     classes = {
         0: 'Novice',
