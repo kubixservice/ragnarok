@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from . import views
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     path('login', obtain_jwt_token, name='api_login'),
@@ -32,9 +33,9 @@ urlpatterns = [
     path('server/rates', views.ServerRatesViewSet.as_view({
         'get': 'retrieve'
     })),
-    path('server/status', views.ServerStatusViewSet.as_view({
+    path('server/status', cache_page(60 * 2)(views.ServerStatusViewSet.as_view({
         'get': 'retrieve'
-    })),
+    }))),
     path('update_password', views.PasswordUpdateViewSet.as_view({
         'put': 'update'
     })),
@@ -43,5 +44,5 @@ urlpatterns = [
     })),
     path('woe_schedule', views.WoeScheduleViewSet.as_view({
         'get': 'list'
-    }))
+    })),
 ]

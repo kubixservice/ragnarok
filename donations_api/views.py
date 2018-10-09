@@ -103,9 +103,10 @@ class PayPalExecutePaymentViewSet(viewsets.ViewSet):
             payment_log.update_date = datetime.datetime.now()
             payment_log.executed = True
             payment_log.save()
+            user = UserProfile.objects.get(user=payment_log.user)
+            user.balance += payment_log.amount
+            user.save()
             response = 'OK'
-
         else:
             response = payment.error
-
         return Response(data=response, status=status.HTTP_200_OK)

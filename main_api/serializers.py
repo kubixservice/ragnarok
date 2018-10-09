@@ -195,3 +195,28 @@ class WoeScheduleSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         pass
+
+
+# class RSSFeedTagSerializer(serializers.Serializer):
+#     term = serializers.CharField(max_length=100)
+#
+#     def update(self, instance, validated_data):
+#         pass
+#
+#     def create(self, validated_data):
+#         pass
+#
+#
+# class RSSFeedSerializer(serializers.Serializer):
+#     title = serializers.CharField(max_length=255)
+#     link = serializers.URLField()
+#     tags = RSSFeedTagSerializer(many=True, read_only=True)
+#     author = serializers.CharField(max_length=255)
+#     published = serializers.DateTimeField()
+#     summary = serializers.CharField(max_length=999)
+#
+#     def update(self, instance, validated_data):
+#         pass
+#
+#     def create(self, validated_data):
+#         pass

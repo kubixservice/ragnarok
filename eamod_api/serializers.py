@@ -3,7 +3,6 @@ from rest_framework import serializers
 from . import models
 
 from main_api import serializers as main_serializers
-from alfheimproject.settings import CONFIG
 
 
 class CharWoeSkillCountSerializer(serializers.ModelSerializer):
