@@ -2,16 +2,23 @@
   // Server configuration
   "server": {
     "conf": {
-      "debug": true, // Enable debug mode? (don't enable it in production)
-      "server_name": "YourRO", // Your server name
-      "server_ip": "127.0.0.1", // Server IP (used to check server status)
-      "server_domain": "http://127.0.0.1:10000", // Server domain (must include http://)
+      "debug": true,
+      // Enable debug mode? (don't enable it in production)
+      "server_name": "YourRO",
+      // Your server name
+      "server_ip": "127.0.0.1",
+      // Server IP (used to check server status)
+      "server_domain": "http://127.0.0.1:10000",
+      // Server domain (must include http://)
       "login_port": 6900,
       "char_port": 6121,
       "map_port": 5121,
-      "server_type": "RE", // Server type (RE / Pre-RE)
-      "check_status": true, // Check server status? (true/false)
-      "emu_type": "rathena" // Emulator type (rathena/hercules)
+      "server_type": "RE",
+      // Server type (RE / Pre-RE)
+      "check_status": true,
+      // Check server status? (true/false)
+      "emu_type": "rathena"
+      // Emulator type (rathena/hercules)
     },
     "rates": {
       "base_exp_rate": 1000,
@@ -34,6 +41,12 @@
       "default_map": "prontera",
       "default_x": 150,
       "default_y": 150
+    },
+    "caching": {
+      "enabled": true,
+      "server_status_update": 60,
+      "server_online_update": 120,
+      "other": 600
     }
   },
   "security": {
@@ -41,13 +54,16 @@
     "max_username_length": 24,
     "min_password_length": 4,
     "max_password_length": 32,
-    "password_hasher": 1, // Password hasher (0 - plain text, 1 - bcrypt, 2 - md5)
+    "password_hasher": 1,
+    // Password hasher (0 - plain text, 1 - bcrypt, 2 - md5)
     "bcrypt": {
       "rounds": 12,
       "prefix": "not used"
     },
-    "email_verification": true, // Enable E-Mail verification after register? (true/false)
-    "verification_key_expire": 7 // Verification key expire time (in days)
+    "email_verification": true,
+    // Enable E-Mail verification after register? (true/false)
+    "verification_key_expire": 7
+    // Verification key expire time (in days)
   },
   "emails": {
     "default_subject": "{server_name} user verification",
@@ -64,9 +80,22 @@
       "username": ""
     }
   },
-  "woe": [ // WoE schedule
+  "woe": [
+    // WoE schedule
     // Day of week, start time, day of week, end time
     // Sunday 12:00 - Sunday 13:00
-    [0, "12:00", 0, "13:00"]
+    [
+      0,
+      "12:00",
+      0,
+      "13:00"
+    ]
+  ],
+  "rss": [
+    {
+      "title": "",
+      "url": ""
+    }
+    // can be added more...
   ]
 }

@@ -216,3 +216,12 @@ class WoeScheduleViewSet(viewsets.ViewSet):
             })
         serializer = serializers.WoeScheduleSerializer(woe, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#
+# class RSSFeedViewSet(viewsets.ViewSet):
+#     permission_classes = [permissions.AllowAny]
+#
+#     def list(self, request):
+#         rss = feed()
+#         serializer = serializers.RSSFeedSerializer(rss, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
