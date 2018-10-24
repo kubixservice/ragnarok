@@ -1,10 +1,16 @@
 import os
+import logging
 import commentjson
 import paypalrestsdk
 
 from core.exceptions import RagnarokConfigError
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+formatter = '[%(levelname)s] %(asctime)s: %(name)s - %(message)s'
+logging.basicConfig(filename='main.log', level=logging.DEBUG, format=formatter, filemode='w')
+logger = logging.getLogger('alfheim.BasicLogger')
+
+logger.debug('AlfheimPanel started')
 
 try:
     with open(os.path.join(BASE_DIR, 'alfheimproject/conf/config.json')) as config:
@@ -19,7 +25,7 @@ except FileNotFoundError:
     raise RagnarokConfigError('secrets.json not found. Did you forgot to add it?')
 
 try:
-    with(open(os.path.join(BASE_DIR, 'alfheimproject/conf/donations.json'))) as donations:
+    with open(os.path.join(BASE_DIR, 'alfheimproject/conf/donations.json')) as donations:
         DONATIONS = commentjson.load(donations)
 except FileNotFoundError:
     raise RagnarokConfigError('donations.json not found. Did you forgot to add it?')
