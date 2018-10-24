@@ -18,7 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('install/', include('core.install.urls'), name='install'),
     path('api/Main/', include('main_api.urls'), name='main_api'),
     path('api/Rankings/', include('rankings_api.urls'), name='rankings_api'),
     path('api/eAmod/', include('eamod_api.urls'), name='eamod_api'),
