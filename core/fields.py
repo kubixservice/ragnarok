@@ -17,7 +17,7 @@ class GuildEmblemField(serializers.Field):
         # get guild_id
         guild_id = value[0]
 
-        # Check if emblem for current guild already exists
+        # Check if an emblem already exists for the current guild
         if os.path.isfile(os.path.join(BASE_DIR, self.GUILD_EMBLEM_PATH.format(id=guild_id))):
             return serializers.Hyperlink('{url}/{path}'.format(url=CONFIG['server']['conf']['server_domain'],
                                                                path=self.GUILD_EMBLEM_PATH.format(id=guild_id)), None)
