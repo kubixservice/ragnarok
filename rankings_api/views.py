@@ -31,11 +31,11 @@ class CharactersRankingViewSet(viewsets.ModelViewSet):
             else:
                 queryset = models.Char.objects.order_by('-base_level', '-job_level', '-zeny')
 
-        # Check for class or/and name filters
+        # Check for class and/or name filters
         class_id = self.request.query_params.get('class')
         name = self.request.query_params.get('name')
 
-        # Apply filters if exists
+        # Apply filters if any exist
         if class_id:
             queryset = queryset.filter(class_field=class_id)
         if name:
