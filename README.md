@@ -76,3 +76,4 @@ If you're having problems with starting Alfheim Project, the first thing you sho
 ## Contributors
 * [kubix](https://github.com/kubixservice)
 * [outofgamut](https://github.com/outofgamut)
+* [Arnoldicus](https://github.com/Arnoldicus)
