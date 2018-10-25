@@ -1,7 +1,7 @@
 # Alfheim Project
 #### Control Panel for Ragnarok Online private servers
 
-* [API documentation](https://app.swaggerhub.com/apis/alfheimproject/alfheimprojectAPI/1.0.0)
+* [API documentation](https://app.swaggerhub.com/apis-docs/alfheimproject/alfheimprojectAPI/1.0.0)
 * [Discord](https://discord.gg/hbXgkxV)
 
 [![Build Status](https://travis-ci.org/kubixservice/ragnarok.svg?branch=master)](https://travis-ci.org/kubixservice/ragnarok)
