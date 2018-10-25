@@ -21,3 +21,5 @@
 * Run **python manage.py migrate**
 * Run **python manage.py runserver HOST:PORT** to enable website
 * Have fun!
+
+//No further Improvements required
