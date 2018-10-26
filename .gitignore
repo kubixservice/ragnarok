@@ -4,8 +4,7 @@ venv/
 alfheimproject/conf/secrets.json
 alfheimproject/conf/donations.json
 alfheimproject/conf/config.json
-static/guilds/*
-config.test.json
+alfheimproject/conf/config.test.json
 main.log
 alfheimproject/__pycache__/
 core/__pycache__/
@@ -24,3 +23,8 @@ eamod_api/migrations/__pycache__/
 main_api/__pycache__/
 main_api/migrations/__pycache__/
 rankings_api/__pycache__/
+media/images/
+static/guilds/
+models_ra.py
+static/css/
+tools/__pycache__/
