@@ -5,7 +5,6 @@ from django.views.decorators.cache import cache_page
 
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
-
 urlpatterns = [
     path('login', obtain_jwt_token, name='api_login'),
     path('refresh', refresh_jwt_token, name='api_refresh_token'),
@@ -29,6 +28,9 @@ urlpatterns = [
     })),
     path('game_account/create', views.GameAccountViewSet.as_view({
         'post': 'create'
+    })),
+    path('game_account/update_password', views.GamePasswordUpdateViewSet.as_view({
+        'post': 'update'
     })),
     path('game_accounts', views.GameAccountViewSet.as_view({
         'get': 'list'

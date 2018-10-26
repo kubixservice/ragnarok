@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from main_api import permissions as perms
+from core import permissions as perms
 from . import serializers
 from . import models
 

@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 from core.rathena import models
 
-from main_api import permissions as perms
+from core import permissions as perms
 from main_api import serializers as main_serializers
 
 

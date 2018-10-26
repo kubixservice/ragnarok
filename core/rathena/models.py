@@ -57,6 +57,13 @@ class Login(models.Model):
     def __str__(self):
         return self.account_id
 
+    def check_password(self, password):
+        # Simple check if password is correct
+        return self.user_pass == hasher.hash_password(password)
+
+    def set_password(self, password):
+        self.user_pass = hasher.hash_password(password)
+
     objects = LoginManager()
 
 
@@ -154,36 +161,22 @@ class ItemDb(models.Model):
     id = models.SmallIntegerField(primary_key=True)
     name_english = models.CharField(max_length=50)
     name_japanese = models.CharField(max_length=50)
-    type = models.IntegerField()
-    price_buy = models.IntegerField(blank=True, null=True)
-    price_sell = models.IntegerField(blank=True, null=True)
-    weight = models.SmallIntegerField(blank=True, null=True)
-    atk = models.SmallIntegerField(blank=True, null=True)
-    matk = models.SmallIntegerField(blank=True, null=True)
-    defence = models.SmallIntegerField(blank=True, null=True)
-    range = models.IntegerField(blank=True, null=True)
-    slots = models.IntegerField(blank=True, null=True)
+    type = models.PositiveIntegerField()
+    price_buy = models.PositiveIntegerField(blank=True, null=True)
+    price_sell = models.PositiveIntegerField(blank=True, null=True)
+    weight = models.PositiveSmallIntegerField()
+    attack = models.PositiveSmallIntegerField(blank=True, null=True)
+    defence = models.PositiveSmallIntegerField(blank=True, null=True)
+    range = models.PositiveIntegerField(blank=True, null=True)
+    slots = models.PositiveIntegerField(blank=True, null=True)
     equip_jobs = models.BigIntegerField(blank=True, null=True)
-    equip_upper = models.IntegerField(blank=True, null=True)
-    equip_genders = models.IntegerField(blank=True, null=True)
-    equip_locations = models.IntegerField(blank=True, null=True)
-    weapon_level = models.IntegerField(blank=True, null=True)
-    equip_level_min = models.SmallIntegerField(blank=True, null=True)
-    equip_level_max = models.SmallIntegerField(blank=True, null=True)
-    refineable = models.IntegerField(blank=True, null=True)
-    disable_options = models.IntegerField(blank=True, null=True)
-    view = models.SmallIntegerField(blank=True, null=True)
-    bindonequip = models.IntegerField(blank=True, null=True)
-    forceserial = models.IntegerField(blank=True, null=True)
-    buyingstore = models.IntegerField(blank=True, null=True)
-    delay = models.IntegerField(blank=True, null=True)
-    trade_flag = models.SmallIntegerField(blank=True, null=True)
-    trade_group = models.SmallIntegerField(blank=True, null=True)
-    nouse_flag = models.SmallIntegerField(blank=True, null=True)
-    nouse_group = models.SmallIntegerField(blank=True, null=True)
-    stack_amount = models.IntegerField(blank=True, null=True)
-    stack_flag = models.IntegerField(blank=True, null=True)
-    sprite = models.IntegerField(blank=True, null=True)
+    equip_upper = models.PositiveIntegerField(blank=True, null=True)
+    equip_genders = models.PositiveIntegerField(blank=True, null=True)
+    equip_locations = models.PositiveIntegerField(blank=True, null=True)
+    weapon_level = models.PositiveIntegerField(blank=True, null=True)
+    equip_level = models.PositiveIntegerField(blank=True, null=True)
+    refineable = models.PositiveIntegerField(blank=True, null=True)
+    view = models.PositiveSmallIntegerField(blank=True, null=True)
     script = models.TextField(blank=True, null=True)
     equip_script = models.TextField(blank=True, null=True)
     unequip_script = models.TextField(blank=True, null=True)
@@ -198,26 +191,31 @@ class ItemDb(models.Model):
 
 class CartInventory(models.Model):
     char_id = models.IntegerField()
-    nameid = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='cart_inventory')
+    nameid = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='cart_inventory', db_column='nameid')
     amount = models.IntegerField()
     equip = models.IntegerField()
     identify = models.SmallIntegerField()
     refine = models.IntegerField()
     attribute = models.IntegerField()
-    card0 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card0')
-    card1 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card1')
-    card2 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card2')
-    card3 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card3')
-    opt_idx0 = models.SmallIntegerField()
-    opt_val0 = models.SmallIntegerField()
-    opt_idx1 = models.SmallIntegerField()
-    opt_val1 = models.SmallIntegerField()
-    opt_idx2 = models.SmallIntegerField()
-    opt_val2 = models.SmallIntegerField()
-    opt_idx3 = models.SmallIntegerField()
-    opt_val3 = models.SmallIntegerField()
-    opt_idx4 = models.SmallIntegerField()
-    opt_val4 = models.SmallIntegerField()
+    card0 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card0', db_column='card0')
+    card1 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card1', db_column='card1')
+    card2 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card2', db_column='card2')
+    card3 = models.ForeignKey(ItemDb, on_delete=models.DO_NOTHING, related_name='card3', db_column='card3')
+    option_id0 = models.PositiveSmallIntegerField()
+    option_val0 = models.PositiveSmallIntegerField()
+    option_parm0 = models.PositiveIntegerField()
+    option_id1 = models.PositiveSmallIntegerField()
+    option_val1 = models.PositiveSmallIntegerField()
+    option_parm1 = models.PositiveIntegerField()
+    option_id2 = models.PositiveSmallIntegerField()
+    option_val2 = models.PositiveSmallIntegerField()
+    option_parm2 = models.PositiveIntegerField()
+    option_id3 = models.PositiveSmallIntegerField()
+    option_val3 = models.PositiveSmallIntegerField()
+    option_parm3 = models.PositiveIntegerField()
+    option_id4 = models.PositiveSmallIntegerField()
+    option_val4 = models.PositiveSmallIntegerField()
+    option_parm4 = models.PositiveIntegerField()
     expire_time = models.IntegerField()
     bound = models.IntegerField()
     unique_id = models.BigIntegerField()
@@ -314,20 +312,27 @@ class Auction(models.Model):
 
 
 class AutotradeData(models.Model):
-    char_id = models.ForeignKey(Char, on_delete=models.CASCADE, to_field='char_id')
-    itemkey = models.ForeignKey(CartInventory, on_delete=models.CASCADE)
+    char_id = models.OneToOneField(Char, on_delete=models.CASCADE, to_field='char_id', primary_key=True,
+                                   db_column='char_id', related_name='character', name='character')
+    itemkey = models.ForeignKey(CartInventory, on_delete=models.CASCADE, db_column='itemkey', related_name='item',
+                                name='item')
     amount = models.IntegerField()
     price = models.IntegerField()
+
+    @property
+    def vending_title(self):
+        return self.merchant.title
 
     class Meta:
         managed = False
         db_table = 'autotrade_data'
-        unique_together = (('char_id', 'itemkey'),)
+        unique_together = (('character', 'item'),)
 
 
 class AutotradeMerchants(models.Model):
-    account_id = models.ForeignKey(Login, on_delete=models.CASCADE, to_field='account_id')
-    char_id = models.ForeignKey(Char, on_delete=models.CASCADE, to_field='char_id')
+    account_id = models.ForeignKey(Login, on_delete=models.CASCADE, to_field='account_id', db_column='account_id')
+    char_id = models.OneToOneField(AutotradeData, on_delete=models.CASCADE, to_field='character', primary_key=True,
+                                   db_column='char_id', related_name='merchant')
     sex = models.IntegerField()
     title = models.CharField(max_length=80)
 

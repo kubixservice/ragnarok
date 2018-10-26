@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 
 from . import serializers
 from . import models as main_models
-from . import permissions as perms
+from core import permissions as perms
 
 from core.core import server
 from core.token import account_activation_token
@@ -131,6 +131,31 @@ class PasswordUpdateViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class GamePasswordUpdateViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.ChangeGamePasswordSerializer
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.data
+            account_id = data.get('account_id')
+            if account_id:
+                try:
+                    account = models.Login.objects.get(account_id=account_id)
+                except models.Login.DoesNotExist:
+                    return Response('Account not found', status=status.HTTP_404_NOT_FOUND)
+
+                if not account.check_password(data.get('old_password')):
+                    return Response({'old_password': 'Incorrect old password'}, status=status.HTTP_400_BAD_REQUEST)
+                account.set_password(data.get('new_password'))
+                account.save()
+                return Response('Password has been updated', status=status.HTTP_200_OK)
+            else:
+                return Response('account_id not found', status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class GameCharacterViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly, perms.IsMine]
     queryset = models.Char.objects.all()
@@ -217,7 +242,6 @@ class WoeScheduleViewSet(viewsets.ViewSet):
         serializer = serializers.WoeScheduleSerializer(woe, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-#
 # class RSSFeedViewSet(viewsets.ViewSet):
 #     permission_classes = [permissions.AllowAny]
 #

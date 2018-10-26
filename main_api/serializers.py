@@ -44,6 +44,22 @@ class ChangePasswordSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False)
 
 
+class ChangeGamePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for game account password change endpoint.
+    """
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    account_id = serializers.IntegerField(required=True)
+
+
 class GameCharacterSerializer(serializers.ModelSerializer):
     class_name = fields.ClassNameField('class_name')
 
@@ -195,7 +211,6 @@ class WoeScheduleSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         pass
-
 
 # class RSSFeedTagSerializer(serializers.Serializer):
 #     term = serializers.CharField(max_length=100)
