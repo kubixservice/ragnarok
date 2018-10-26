@@ -1,12 +1,12 @@
 asn1crypto==0.24.0
 bcrypt==3.1.4
 beautifulsoup4==4.6.3
-certifi==2018.4.16
+certifi==2018.10.15
 cffi==1.11.5
 chardet==3.0.4
 commentjson==0.7.1
 cryptography==2.3.1
-django==2.1.2
+Django==2.1
 django-cors-headers==2.4.0
 django-recaptcha==1.4.0
 django-redis==4.9.0
@@ -25,7 +25,7 @@ PyJWT==1.6.4
 pyOpenSSL==18.0.0
 pytz==2018.5
 redis==2.10.6
-requests==2.19.1
+requests==2.20.0
 six==1.11.0
 ua-parser==0.8.0
 urllib3==1.23
