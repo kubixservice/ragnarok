@@ -19,8 +19,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('install/', include('core.install.urls'), name='install'),
-    path('api/Main/', include('main_api.urls'), name='main_api'),
-    path('api/Rankings/', include('rankings_api.urls'), name='rankings_api'),
-    path('api/eAmod/', include('eamod_api.urls'), name='eamod_api'),
-    path('api/Donations/', include('donations_api.urls'), name='donations_api')
+    path('api/main/', include('main_api.urls'), name='main_api'),
+    path('api/rankings/', include('rankings_api.urls'), name='rankings_api'),
+    path('api/eamod/', include('eamod_api.urls'), name='eamod_api'),
+    path('api/donations/', include('donations_api.urls'), name='donations_api'),
+    path('api/database/', include('db_api.urls'), name='database_api')
 ]
