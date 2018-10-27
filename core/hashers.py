@@ -1,38 +1,34 @@
+import bcrypt
 import hashlib
 
-import bcrypt
-
-from .exceptions import RagnarokConfigError
 from alfheimproject.settings import CONFIG
 
 
 class PasswordHasher:
+    """PasswordHasher provide methods to encrypt game account passwords"""
+    def __init__(self, hash_type):
+        self.hash_type = hash_type
 
-    @staticmethod
-    def hash_password(password):
-        _type = CONFIG['security']['password_hasher']
-        if isinstance(_type, int):
-            if _type == 1:  # BCrypt hashing
-                password = PasswordHasher.bcrypt(password)
-            elif _type == 2:  # MD5 hashing
-                password = PasswordHasher.md5(password)
-            return password
-        else:
-            raise RagnarokConfigError('{cls}:{method}: [CONFIG:security > password_hasher] must be integer'.format(
-                cls=__class__.__name__,
-                method=__class__.hash_password.__name__
-            ))
+    """Main method"""
+    def hash_password(self, password):
+        if self.hash_type == 'bcrypt':  # BCrypt hashing
+            password = self.bcrypt(password)
+        elif self.hash_type == 'md5':  # MD5 hashing
+            password = self.md5(password)
+        return password
 
-    @staticmethod
-    def bcrypt(password):
-        salt = bcrypt.gensalt(rounds=CONFIG['security']['bcrypt']['rounds'])
-        _hash = bcrypt.hashpw(str(password).encode('utf-8'), salt)
-        return _hash.decode('utf-8')
+    """BCrypt hashing"""
+    def bcrypt(self, password):
+        salt = bcrypt.gensalt(rounds=CONFIG['security']['bcrypt']['rounds'],
+                              prefix=CONFIG['security']['bcrypt']['prefix'])
 
-    @staticmethod
-    def md5(password):
-        _hash = hashlib.md5(password.encode('utf-8')).hexdigest()
-        return _hash
+        hashed = bcrypt.hashpw(str(password).encode('utf-8'), salt)
+        return hashed.decode('utf-8')
+
+    """md5 no-salt hashing"""
+    def md5(self, password):
+        hashed = hashlib.md5(password.encode('utf-8')).hexdigest()
+        return hashed
 
 
-hasher = PasswordHasher()
+hasher = PasswordHasher(CONFIG['security']['game_account']['password_hasher'])
