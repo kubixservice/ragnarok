@@ -2,11 +2,17 @@ import importlib
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 
 from core import fields
 from alfheimproject.settings import CONFIG
 
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
+
+MIN_ULENGTH = CONFIG['security']['validation']['min_username_length']  # min username length
+MAX_ULENGTH = CONFIG['security']['validation']['max_username_length']  # max username length
+MIN_PLENGTH = CONFIG['security']['validation']['min_password_length']  # min password length
+MAX_PLENGTH = CONFIG['security']['validation']['max_password_length']  # max password length
 
 
 class GameGuildSerializer(serializers.ModelSerializer):
@@ -39,8 +45,29 @@ class ChangePasswordSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass
 
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
+    old_password = serializers.CharField(
+        style={
+            'input_type': 'password'
+        },
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
+        required=True,
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
+        label='Password',
+        write_only=True
+    )
+    new_password = serializers.CharField(
+        style={
+            'input_type': 'password'
+        },
+        validators=[validate_password],
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
+        required=True,
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
+        label='Password',
+        write_only=True
+    )
     email = serializers.EmailField(required=False)
 
 
@@ -55,8 +82,29 @@ class ChangeGamePasswordSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass
 
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
+    old_password = serializers.CharField(
+        required=True,
+        style={
+            'input_type': 'password'
+        },
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
+        label='Old Password',
+        write_only=True
+    )
+    new_password = serializers.CharField(
+        required=True,
+        validators=[validate_password],
+        style={
+            'input_type': 'password'
+        },
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
+        label='New Password',
+        write_only=True
+    )
     account_id = serializers.IntegerField(required=True)
 
 
@@ -73,11 +121,10 @@ class GameCharacterSerializer(serializers.ModelSerializer):
 
 class GameAccountSerializer(serializers.ModelSerializer):
     userid = serializers.CharField(
-        min_length=CONFIG['security']['min_username_length'],
-        max_length=CONFIG['security']['max_username_length'],
+        min_length=MIN_ULENGTH,
+        max_length=MAX_ULENGTH,
         required=True,
-        help_text='Min. length {min}, max. length {max}'.format(min=CONFIG['security']['min_username_length'],
-                                                                max=CONFIG['security']['max_username_length']),
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_ULENGTH, max=MAX_ULENGTH),
         label='Login'
     )
 
@@ -85,13 +132,13 @@ class GameAccountSerializer(serializers.ModelSerializer):
         style={
             'input_type': 'password'
         },
-        min_length=CONFIG['security']['min_password_length'],
-        max_length=CONFIG['security']['max_password_length'],
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
         required=True,
-        help_text='Min. length {min}, max. length {max}'.format(min=CONFIG['security']['min_password_length'],
-                                                                max=CONFIG['security']['max_password_length']),
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
         label='Password',
-        write_only=True
+        write_only=True,
+        validators=[validate_password]
     )
 
     sex = serializers.ChoiceField(
@@ -125,13 +172,13 @@ class UserSerializer(serializers.ModelSerializer):
         style={
             'input_type': 'password'
         },
-        min_length=CONFIG['security']['min_password_length'],
-        max_length=CONFIG['security']['max_password_length'],
+        min_length=MIN_PLENGTH,
+        max_length=MAX_PLENGTH,
         required=True,
-        help_text='Min. length {min}, max. length {max}'.format(min=CONFIG['security']['min_password_length'],
-                                                                max=CONFIG['security']['max_password_length']),
+        help_text='Min. length {min}, max. length {max}'.format(min=MIN_PLENGTH, max=MAX_PLENGTH),
         label='Password',
-        write_only=True
+        write_only=True,
+        validators=[validate_password]
     )
 
     class Meta:

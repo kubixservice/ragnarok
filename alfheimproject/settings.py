@@ -70,7 +70,40 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'core.validators.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': CONFIG['security']['validation']['min_password_length']
+        }
+    },
+    {
+        'NAME': 'core.validators.MaximumLengthValidator',
+        'OPTIONS': {
+            'max_length': CONFIG['security']['validation']['max_password_length']
+        }
+    },
+    {
+        'NAME': 'core.validators.MinimumNumberValidator',
+        'OPTIONS': {
+            'min_num': CONFIG['security']['validation']['password_min_number']
+        }
+    },
+    {
+        'NAME': 'core.validators.MinimumLowerValidator',
+        'OPTIONS': {
+            'min_lower': CONFIG['security']['validation']['password_min_lower']
+        }
+    },
+    {
+        'NAME': 'core.validators.MinimumUpperValidator',
+        'OPTIONS': {
+            'min_upper': CONFIG['security']['validation']['password_min_upper']
+        }
+    },
+    {
+        'NAME': 'core.validators.MinimumSymbolValidator',
+        'OPTIONS': {
+            'min_symbol': CONFIG['security']['validation']['password_min_symbol']
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -79,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PASSWORD_HASHERS = CONFIG['security']['master_account']['password_hashers']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
