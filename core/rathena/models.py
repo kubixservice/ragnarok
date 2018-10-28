@@ -9,12 +9,14 @@ from __future__ import unicode_literals
 
 from random import randint
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db.models.aggregates import Count
 
 from core.hashers import hasher
 from core.ragnarok import ragnarok
 from alfheimproject.settings import CONFIG
+
+User = get_user_model()
 
 
 class AutotradeMerchantsManager(models.Manager):

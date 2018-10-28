@@ -1,8 +1,4 @@
 from rest_framework import serializers
-from rest_framework import exceptions
-from django.contrib.auth.models import User
-
-from . import models
 
 
 class DonationSerializer(serializers.Serializer):
