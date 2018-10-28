@@ -1,12 +1,13 @@
 import importlib
 
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 
 from core import fields
 from alfheimproject.settings import CONFIG
 
+User = get_user_model()
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
 
 MIN_ULENGTH = CONFIG['security']['validation']['min_username_length']  # min username length

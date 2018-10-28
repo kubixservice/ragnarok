@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.response import Response
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
 from . import serializers
@@ -18,6 +18,7 @@ from core.token import account_activation_token
 from core.medium import get_medium_posts
 from alfheimproject.settings import CONFIG
 
+User = get_user_model()
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
 
 
