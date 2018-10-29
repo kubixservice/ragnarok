@@ -3,14 +3,16 @@ import logging
 import commentjson
 import paypalrestsdk
 
+from . import __version__
 from core.exceptions import RagnarokConfigError
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 formatter = '[%(levelname)s] %(asctime)s: %(name)s - %(message)s'
 logging.basicConfig(filename='main.log', level=logging.DEBUG, format=formatter, filemode='w')
 logger = logging.getLogger('alfheim.BasicLogger')
 
-logger.debug('AlfheimPanel started')
+logger.debug('AlfheimPanel v{ver} started'.format(ver=__version__))
 
 try:
     with open(os.path.join(BASE_DIR, 'alfheimproject/conf/config.json')) as config:
