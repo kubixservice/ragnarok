@@ -21,7 +21,7 @@ Alfheim Project is a Control Panel for a robust Massively Multiplayer Online Rol
 
 ## Helpful Links
 * [Discord Server](https://discord.gg/hbXgkxV)
-* [API documentation](https://app.swaggerhub.com/apis/alfheimproject/alfheimprojectAPI/1.0.0)
+* [API documentation](https://app.swaggerhub.com/apis-docs/alfheimproject/alfheimprojectAPI/1.0.0)
 * [Python](https://www.python.org/)
 * [Django](https://www.djangoproject.com/)
 * [Django Rest Framework](https://www.django-rest-framework.org/)
