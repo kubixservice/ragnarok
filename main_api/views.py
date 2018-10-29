@@ -206,7 +206,7 @@ class GameAccountViewSet(viewsets.ModelViewSet):
 
 
 class ServerRatesViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly]
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
     def retrieve(self, request):
         serializer = serializers.ServerRatesSerializer(CONFIG['server']['rates'])
