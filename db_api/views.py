@@ -22,7 +22,6 @@ class ItemDBViewSet(viewsets.ModelViewSet):
 class VendingViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
     serializer_class = serializers.VendingSerializer
-    queryset = models.AutotradeData.objects.all()
 
     def get_queryset(self):
         queryset = models.AutotradeData.objects.all()
