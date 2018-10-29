@@ -1,10 +1,12 @@
+import importlib
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from core.rathena import models
-
 from core import permissions as perms
 from main_api import serializers as main_serializers
+from alfheimproject.settings import CONFIG
+
+models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
 
 
 class CharactersRankingViewSet(viewsets.ModelViewSet):
