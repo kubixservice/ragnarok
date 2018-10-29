@@ -206,7 +206,7 @@ class GameAccountViewSet(viewsets.ModelViewSet):
 
 
 class ServerRatesViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly]
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
     def retrieve(self, request):
         serializer = serializers.ServerRatesSerializer(CONFIG['server']['rates'])
@@ -214,7 +214,7 @@ class ServerRatesViewSet(viewsets.ViewSet):
 
 
 class ServerStatusViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated, perms.AllowHostOnly]
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
     def retrieve(self, request):
         _status = server.get_server_status()
@@ -225,7 +225,7 @@ class ServerStatusViewSet(viewsets.ViewSet):
 
 
 class MediumViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
     def retrieve(self, request):
         data = get_medium_posts()
@@ -234,7 +234,7 @@ class MediumViewSet(viewsets.ViewSet):
 
 
 class WoeScheduleViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
     def list(self, request):
         woe = []
