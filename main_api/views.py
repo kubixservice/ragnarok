@@ -94,6 +94,11 @@ class MainUserViewSet(viewsets.ModelViewSet):
         serializer = serializers.UserSerializer(user)
         return Response(serializer.data)
 
+
+class MainUserCreateViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserSerializer
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
+
     def perform_create(self, serializer):
         if CONFIG['security']['email_verification']:
             token = account_activation_token.make_token()
