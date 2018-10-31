@@ -6,7 +6,6 @@ import paypalrestsdk
 from . import __version__
 from core.exceptions import RagnarokConfigError
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 formatter = '[%(levelname)s] %(asctime)s: %(name)s - %(message)s'
 logging.basicConfig(filename='main.log', level=logging.DEBUG, format=formatter, filemode='w')
@@ -38,7 +37,6 @@ ALLOWED_HOSTS = ['*']
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.{engine}'.format(engine=SECRETS['db_engine']),
@@ -49,6 +47,7 @@ DATABASES = {
         'PORT': SECRETS['db_port'],
     }
 }
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

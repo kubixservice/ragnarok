@@ -41,12 +41,28 @@
       "default_map": "prontera",
       "default_x": 150,
       "default_y": 150
-    },
-    "caching": {
-      "enabled": true,
-      "server_status_update": 60,
-      "server_online_update": 120,
-      "other": 600
+    }
+  },
+  // Cache framework. More at: https://docs.djangoproject.com/en/2.1/topics/cache/
+  "cache": {
+    // Is cache framework enabled? (recommended: true)
+    "enabled": true,
+    // recommended for production mode
+    "cache_entrie_site": false,
+    // Cache framework backend
+    "backend": "django.core.cache.backends.filebased.FileBasedCache",
+    // Path to store cache files
+    "storage_path": "cache",
+    // The default timeout, in seconds, to use for the cache.
+    "default_timeout": 300,
+    // The maximum number of entries allowed in the cache before old values are deleted
+    "max_entries": 1000,
+    // Other timeouts
+    "timeouts": {
+      // Timeout, in seconds, for server status caching (default: 600 [10 min])
+      "server_status": 600,
+      // Timeout, in seconds, for server online (players in game/discord/max-players) caching (default: 600 [10 min])
+      "server_online": 600
     }
   },
   "security": {
@@ -106,6 +122,7 @@
       "13:00"
     ]
   ],
+  // Not used
   "rss": [
     {
       "title": "",

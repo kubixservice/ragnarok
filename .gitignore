@@ -28,3 +28,4 @@ static/guilds/
 models_ra.py
 static/css/
 tools/__pycache__/
+cache/

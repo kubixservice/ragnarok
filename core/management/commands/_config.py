@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv4_address, URLValidator
-from alfheimproject.local_settings import logger
+from alfheimproject.settings import logger
 
 
 class ConfigValidator(object):

@@ -369,6 +369,11 @@ class AutotradeData(models.Model):
     def vending_title(self):
         return self.merchant.title
 
+    @property
+    def current_map(self):
+        # self.character because [self.char_id > name = character]
+        return [self.character.last_map, self.character.last_x, self.character.last_y]
+
     class Meta:
         managed = False
         db_table = 'autotrade_data'
