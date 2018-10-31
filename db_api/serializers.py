@@ -37,7 +37,8 @@ class VendingSerializer(serializers.ModelSerializer):
     character = MerchantSerializer(many=False, read_only=True)
     item = CartInventorySerializer(many=False, read_only=True)
     title = serializers.CharField(max_length=255, source='vending_title')
+    map_image = fields.GatField(source='current_map')
 
     class Meta:
         model = models.AutotradeData
-        fields = ('character', 'item', 'amount', 'price', 'title')
+        fields = ('character', 'item', 'amount', 'price', 'title', 'map_image')

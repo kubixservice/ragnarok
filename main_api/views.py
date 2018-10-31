@@ -8,6 +8,8 @@ from rest_framework.response import Response
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 
 from . import serializers
 from . import models as main_models
@@ -208,6 +210,7 @@ class GameAccountViewSet(viewsets.ModelViewSet):
 class ServerRatesViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
+    @method_decorator(never_cache)
     def retrieve(self, request):
         serializer = serializers.ServerRatesSerializer(CONFIG['server']['rates'])
         return Response(serializer.data)
@@ -216,10 +219,11 @@ class ServerRatesViewSet(viewsets.ViewSet):
 class ServerStatusViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
+    @method_decorator(never_cache)
     def retrieve(self, request):
-        _status = server.get_server_status()
-        _online = server.get_online_status()
-        data = {**_status, **_online}
+        server_status = server.get_server_status()
+        server_online = server.get_online_status()
+        data = {**server_status, **server_online}
         serializer = serializers.ServerStatusSerializer(data)
         return Response(serializer.data)
 
@@ -227,6 +231,7 @@ class ServerStatusViewSet(viewsets.ViewSet):
 class MediumViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
+    @method_decorator(never_cache)
     def retrieve(self, request):
         data = get_medium_posts()
         serializer = serializers.MediumPostSerializer(data, many=True)
@@ -236,6 +241,7 @@ class MediumViewSet(viewsets.ViewSet):
 class WoeScheduleViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
+    @method_decorator(never_cache)
     def list(self, request):
         woe = []
         for schedule in CONFIG['woe']:

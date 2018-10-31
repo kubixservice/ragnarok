@@ -15,6 +15,10 @@ from .local_settings import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRETS['secret_key']
 
+# Since this feature will be used often, we will provide a special variable for it.
+# Is caching framework enabled? Check /alfheimproject/conf/config.json
+CACHING = CONFIG['cache']['enabled']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +45,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Cache entrie site?
+if CONFIG['cache']['cache_entrie_site']:
+    MIDDLEWARE.insert(0, 'django.middleware.cache.UpdateCacheMiddleware')
+    MIDDLEWARE.append('django.middleware.cache.FetchFromCacheMiddleware')
 
 ROOT_URLCONF = 'alfheimproject.urls'
 
@@ -133,12 +142,26 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = CONFIG['server']['conf']['server_domain'] + '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Mail settings
 EMAIL_HOST = SECRETS['smtp']['email_host']
 EMAIL_PORT = SECRETS['smtp']['email_port']
 EMAIL_USE_SSL = SECRETS['smtp']['email_use_ssl']
 EMAIL_HOST_USER = SECRETS['smtp']['email_host_user']
 EMAIL_HOST_PASSWORD = SECRETS['smtp']['email_host_password']
+
+if CACHING:
+    CACHES = {
+        'default': {
+            'BACKEND': CONFIG['cache']['backend'],
+            'LOCATION': os.path.join(BASE_DIR, CONFIG['cache']['storage_path']),
+            'TIMEOUT': CONFIG['cache']['default_timeout'],
+            'OPTIONS': {
+                'MAX_ENTRIES': CONFIG['cache']['max_entries']
+            }
+        }
+    }

@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 
 urlpatterns = [
@@ -24,4 +26,4 @@ urlpatterns = [
     path('api/eamod/', include('eamod_api.urls'), name='eamod_api'),
     path('api/donations/', include('donations_api.urls'), name='donations_api'),
     path('api/database/', include('db_api.urls'), name='database_api')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
