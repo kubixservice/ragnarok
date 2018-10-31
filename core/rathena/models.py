@@ -381,6 +381,10 @@ class AutotradeData(models.Model):
     price = models.PositiveIntegerField()
 
     @property
+    def current_map(self):
+        return [self.vending_id.char_id.last_map, self.vending_id.char_id.last_x, self.vending_id.char_id.last_y]
+
+    @property
     def vending_title(self):
         return self.vending_id.title
 
