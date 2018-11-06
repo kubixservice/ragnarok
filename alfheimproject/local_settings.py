@@ -1,3 +1,4 @@
+import datetime
 import os
 import logging
 import commentjson
@@ -48,7 +49,6 @@ DATABASES = {
     }
 }
 
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -57,11 +57,12 @@ REST_FRAMEWORK = {
         'core.permissions.AllowHostOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 5
 }
 
 paypalrestsdk.configure({
@@ -69,3 +70,7 @@ paypalrestsdk.configure({
     "client_id": DONATIONS['paypal']['client_id'],
     "client_secret": DONATIONS['paypal']['client_secret']
 })
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}

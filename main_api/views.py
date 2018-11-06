@@ -101,6 +101,19 @@ class MainUserCreateViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        response = {
+            **serializer.data
+        }
+        if CONFIG['security']['email_verification']:
+            response['message'] = 'Please confirm your account.'
+
+        return Response(response, status=status.HTTP_200_OK, headers=headers)
+
     def perform_create(self, serializer):
         if CONFIG['security']['email_verification']:
             token = account_activation_token.make_token()
@@ -203,8 +216,26 @@ class GameAccountViewSet(viewsets.ModelViewSet):
         serializer = serializers.GameAccountSerializer(queryset, many=True)
         return Response(serializer.data)
 
+
+class CreateGameAccountViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.GameAccountSerializer
+    permission_classes = [permissions.AllowAny, perms.AllowHostOnly]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        response = {
+            **serializer.data
+        }
+        return Response(response, status=status.HTTP_200_OK, headers=headers)
+
     def perform_create(self, serializer):
-        serializer.save(master_account=self.request.user, email=self.request.user.email)
+        if self.request.auth:
+            serializer.save(master_account=self.request.user, email=self.request.user.email)
+        else:
+            serializer.save(master_account_id=1, email='a@a.com')
 
 
 class ServerRatesViewSet(viewsets.ViewSet):

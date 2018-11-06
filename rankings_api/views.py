@@ -31,7 +31,7 @@ class CharactersRankingViewSet(viewsets.ModelViewSet):
                                                    'DESC, `job_level` DESC, `zeny` DESC')
                 return queryset
             else:
-                queryset = models.Char.objects.order_by('-base_level', '-job_level', '-zeny')
+                queryset = models.Char.objects.order_by('-zeny', '-base_level', '-job_level')
 
         # Check for class and/or name filters
         class_id = self.request.query_params.get('class')

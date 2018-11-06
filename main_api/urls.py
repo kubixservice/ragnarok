@@ -28,7 +28,7 @@ urlpatterns = [
     path('game_account/<int:pk>', views.GameAccountViewSet.as_view({
         'get': 'retrieve'
     })),
-    path('game_account/create', views.GameAccountViewSet.as_view({
+    path('create_game_account', views.CreateGameAccountViewSet.as_view({
         'post': 'create'
     })),
     path('game_account/update_password', views.GamePasswordUpdateViewSet.as_view({
@@ -40,9 +40,9 @@ urlpatterns = [
     path('server/rates', views.ServerRatesViewSet.as_view({
         'get': 'retrieve'
     })),
-    path('server/status', cache_page(60 * 2)(views.ServerStatusViewSet.as_view({
+    path('server/status', views.ServerStatusViewSet.as_view({
         'get': 'retrieve'
-    }))),
+    })),
     path('update_password', views.PasswordUpdateViewSet.as_view({
         'put': 'update'
     })),

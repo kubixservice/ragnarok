@@ -23,23 +23,24 @@ class LoginManager(models.Manager):
 
 
 class Login(models.Model):
-    account_id = models.AutoField(primary_key=True)
+    account_id = models.AutoField(primary_key=True, auto_created=True)
     userid = models.CharField(max_length=23)
     user_pass = models.CharField(max_length=32)
     sex = models.CharField(max_length=1)
     email = models.CharField(max_length=39)
-    group_id = models.IntegerField()
-    state = models.PositiveIntegerField()
-    unban_time = models.PositiveIntegerField()
-    expiration_time = models.PositiveIntegerField()
-    logincount = models.PositiveIntegerField()
+    group_id = models.IntegerField(default=0)
+    state = models.PositiveIntegerField(default=0)
+    unban_time = models.PositiveIntegerField(default=0)
+    expiration_time = models.PositiveIntegerField(default=0)
+    logincount = models.PositiveIntegerField(default=0)
     lastlogin = models.DateTimeField(blank=True, null=True)
-    last_ip = models.CharField(max_length=100)
+    last_ip = models.CharField(max_length=100, null=True, default='')
     birthdate = models.DateField(blank=True, null=True)
-    character_slots = models.PositiveIntegerField()
-    pincode = models.CharField(max_length=4)
-    pincode_change = models.PositiveIntegerField()
-    master_account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_accounts')
+    character_slots = models.PositiveIntegerField(default=0)
+    pincode = models.CharField(max_length=4, default='')
+    pincode_change = models.PositiveIntegerField(null=True, default=0)
+    master_account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_accounts', default=1,
+                                       null=True, blank=True)
 
     class Meta:
         managed = False
