@@ -10,8 +10,8 @@ from alfheimproject.settings import SECRETS
 User = get_user_model()
 
 
-class MasterAccount(AbstractUser):
-    pass
+# class MasterAccount(AbstractUser):
+#     pass
 
 
 class UserVerification(models.Model):

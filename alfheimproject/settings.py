@@ -15,10 +15,6 @@ from .local_settings import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRETS['secret_key']
 
-# Since this feature will be used often, we will provide a special variable for it.
-# Is caching framework enabled? Check /alfheimproject/conf/config.json
-CACHING = CONFIG['cache']['enabled']
-
 # Application definition
 
 INSTALLED_APPS = [

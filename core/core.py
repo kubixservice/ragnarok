@@ -6,7 +6,7 @@ import requests
 from django.core.cache import cache
 
 from main_api.models import ServerHighestPeak
-from alfheimproject.settings import CONFIG, CACHING
+from alfheimproject.settings import CONFIG
 
 models = importlib.import_module('core.{emu}.models'.format(emu=CONFIG['server']['conf']['emu_type']))
 
@@ -65,21 +65,15 @@ class Server(object):
         return online_status
 
     def get_server_status(self):
-        if CACHING:
-            server_status = cache.get('server_status')
-            if not server_status:
-                server_status = self.check_server_status()
-        else:
+        server_status = cache.get('server_status')
+        if not server_status:
             server_status = self.check_server_status()
 
         return server_status
 
     def get_online_status(self):
-        if CACHING:
-            online_status = cache.get('online_status')
-            if not online_status:
-                online_status = self.check_online_status()
-        else:
+        online_status = cache.get('online_status')
+        if not online_status:
             online_status = self.check_online_status()
 
         return online_status
