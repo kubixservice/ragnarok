@@ -156,16 +156,17 @@ EMAIL_USE_SSL = SECRETS['smtp']['email_use_ssl']
 EMAIL_HOST_USER = SECRETS['smtp']['email_host_user']
 EMAIL_HOST_PASSWORD = SECRETS['smtp']['email_host_password']
 
-if CACHING:
-    CACHES = {
-        'default': {
-            'BACKEND': CONFIG['cache']['backend'],
-            'LOCATION': os.path.join(BASE_DIR, CONFIG['cache']['storage_path']),
-            'TIMEOUT': CONFIG['cache']['default_timeout'],
-            'OPTIONS': {
-                'MAX_ENTRIES': CONFIG['cache']['max_entries']
-            }
+
+# Caching enabled by default
+CACHES = {
+    'default': {
+        'BACKEND': CONFIG['cache']['backend'],
+        'LOCATION': os.path.join(BASE_DIR, CONFIG['cache']['storage_path']),
+        'TIMEOUT': CONFIG['cache']['default_timeout'],
+        'OPTIONS': {
+            'MAX_ENTRIES': CONFIG['cache']['max_entries']
         }
     }
+}
 
 CORS_ORIGIN_ALLOW_ALL = True

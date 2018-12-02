@@ -45,8 +45,6 @@
   },
   // Cache framework. More at: https://docs.djangoproject.com/en/2.1/topics/cache/
   "cache": {
-    // Is cache framework enabled? (recommended: true)
-    "enabled": true,
     // recommended for production mode
     "cache_entrie_site": false,
     // Cache framework backend
