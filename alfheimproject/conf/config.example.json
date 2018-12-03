@@ -1,0 +1,131 @@
+{
+  // Server configuration
+  "server": {
+    "conf": {
+      // Enable debug mode? (don't enable it in production)
+      "debug": true,
+      // Your server name
+      "server_name": "YourRO",
+      // Server IP (used to check server status)
+      "server_ip": "127.0.0.1",
+      // Server domain (must include http(s)://)
+      "server_domain": "http://127.0.0.1:10000",
+      "login_port": 6900,
+      "char_port": 6121,
+      "map_port": 5121,
+      // Server type (RE / Pre-RE)
+      "server_type": "RE",
+      // Check server status? (true/false)
+      "check_status": true,
+      // Emulator type (rathena/hercules)
+      "emu_type": "rathena"
+    },
+    "rates": {
+      "base_exp_rate": 1000,
+      "job_exp_rate": 1000,
+      "quest_exp_rate": 1000,
+      "mvp_exp_rate": 100,
+      "common": 1000,
+      "common_boss": 500,
+      "heal": 1000,
+      "heal_boss": 500,
+      "useable": 1000,
+      "useable_boss": 500,
+      "equip": 1000,
+      "equip_boss": 500,
+      "card": 500,
+      "card_boss": 100,
+      "mvp_item": 100
+    },
+    "other": {
+      "default_map": "prontera",
+      "default_x": 150,
+      "default_y": 150
+    }
+  },
+  // Cache framework. More at: https://docs.djangoproject.com/en/2.1/topics/cache/
+  "cache": {
+    // recommended for production mode
+    "cache_entrie_site": false,
+    // Cache framework backend
+    "backend": "django.core.cache.backends.filebased.FileBasedCache",
+    // Path to store cache files
+    "storage_path": "cache",
+    // The default timeout, in seconds, to use for the cache.
+    "default_timeout": 300,
+    // The maximum number of entries allowed in the cache before old values are deleted
+    "max_entries": 1000,
+    // Other timeouts
+    "timeouts": {
+      // Timeout, in seconds, for server status caching (default: 600 [10 min])
+      "server_status": 600,
+      // Timeout, in seconds, for server online (players in game/discord/max-players) caching (default: 600 [10 min])
+      "server_online": 600
+    }
+  },
+  "security": {
+    "validation": {
+      "min_username_length": 4,
+      "max_username_length": 32,
+      "min_password_length": 8,
+      "max_password_length": 64,
+      "password_min_upper": 1,
+      "password_min_lower": 1,
+      "password_min_number": 1,
+      "password_min_symbol": 1
+    },
+    "master_account": {
+      // More password hashers at
+      // https://docs.djangoproject.com/en/2.1/topics/auth/passwords/#included-hashers
+      "password_hashers": [
+        "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher"
+      ]
+    },
+    "game_account": {
+      // Password hasher (text/bcrypt/md5)
+      "password_hasher": "text",
+      "bcrypt": {
+        "rounds": 12,
+        "prefix": "2b"
+      }
+    },
+    // Enable E-Mail verification after register? (true/false)
+    "email_verification": false,
+    // Verification key expire time (in days)
+    "verification_key_expire": 7
+  },
+  "emails": {
+    "default_subject": "{server_name} user verification",
+    "default_message": "Welcome to the {server_name}, {user}!"
+  },
+  "api": {
+    "divine_pride": {
+      "api_key": "none"
+    },
+    "discord": {
+      "guild_id": 0
+    },
+    "medium": {
+      "username": ""
+    }
+  },
+  "woe": [
+    // WoE schedule
+    // Day of week, start time, day of week, end time
+    // Sunday 12:00 - Sunday 13:00
+    [
+      0,
+      "12:00",
+      0,
+      "13:00"
+    ]
+  ],
+  // Not used
+  "rss": [
+    {
+      "title": "",
+      "url": ""
+    }
+    // can be added more...
+  ]
+}
