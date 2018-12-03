@@ -39,15 +39,14 @@ class Login(models.Model):
     character_slots = models.PositiveIntegerField(default=0)
     pincode = models.CharField(max_length=4, default='')
     pincode_change = models.PositiveIntegerField(null=True, default=0)
-    master_account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_accounts', default=1,
-                                       null=True, blank=True)
+    users = models.ManyToManyField(User)
 
     class Meta:
         managed = False
         db_table = 'login'
 
     def __str__(self):
-        return self.account_id
+        return self.sex
 
     def check_password(self, password):
         # Simple check if password is correct

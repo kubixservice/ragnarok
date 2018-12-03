@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.{engine}'.format(engine=SECRETS['db_engine']),
+        'CONN_MAX_AGE': 3600,
         'NAME': SECRETS['db_database'],
         'USER': SECRETS['db_username'],
         'PASSWORD': SECRETS['db_password'],

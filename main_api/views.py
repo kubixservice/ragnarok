@@ -233,7 +233,8 @@ class CreateGameAccountViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         if self.request.auth:
-            serializer.save(master_account=self.request.user, email=self.request.user.email)
+            serializer.save(email=self.request.user.email)
+            serializer.users.add(self.request.user)
         else:
             serializer.save(master_account_id=1, email='a@a.com')
 
