@@ -10,7 +10,7 @@ Django==2.2.10
 django-cors-headers==2.4.0
 django-recaptcha==1.4.0
 django-redis==4.10.0
-djangorestframework==3.9.0
+djangorestframework==3.9.1
 djangorestframework-jwt==1.11.0
 djangorestframework-queryfields==1.0.0
 feedparser==5.2.1
