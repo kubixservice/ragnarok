@@ -5,7 +5,7 @@ certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
 commentjson==0.7.1
-cryptography==2.3.1
+cryptography==3.3.2
 Django==2.2.13
 django-cors-headers==2.4.0
 django-recaptcha==1.4.0
